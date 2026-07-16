@@ -33,11 +33,11 @@ inforccc is a technique to take cam shots of a target's phone front camera or PC
 ```bash
 apt-get -y install php openssh-client curl wget unzip
 
-### kali/termux
+## kali/termux
 git clone https://github.com/cyberwithmanveer/inforccc
 cd inforccc
 chmod +x inforccc.sh
 bash inforccc.sh
 
-###usage
+##usage
 bash inforccc.sh

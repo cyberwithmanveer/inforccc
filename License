@@ -1,0 +1,19 @@
+---
+
+### File 8: `LICENSE` (GPL-3.0)
+
+Same as the original CamPhish LICENSE — GNU General Public License v3.0. Just update the copyright header to `cyberwithmanveer`.
+
+---
+
+## Quick Setup
+
+```bash
+# Create directory
+mkdir inforccc && cd inforccc
+
+# Make main script executable
+chmod +x inforccc.sh
+
+# Run
+bash inforccc.sh

